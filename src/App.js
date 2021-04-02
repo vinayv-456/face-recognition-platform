@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react';
 import './App.css';
 
 //import components 
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import Logo from './components/Logo/Logo';
 import Navigation from './components/Navigation/Navigation';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -31,10 +33,11 @@ function App() {
   }
   return (
     <div className="container">
-      <Navigation/>
+      <Register/>
+      {/* <Navigation/>
       <Logo/>
       <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
-      <FaceRecognition imageUrl={imageUrl}/>
+      <FaceRecognition imageUrl={imageUrl}/> */}
     </div>
   );
 }
