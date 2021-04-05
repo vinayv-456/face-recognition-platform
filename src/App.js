@@ -17,6 +17,7 @@ import React from 'react';
 function App() {
   const [tempInput, setTempInput] = useState('')
   const [imageUrl, setImageUrl] = useState('')
+  const [route, setRoute] =useState('signin')
 
   useEffect(()=>{
     axiosInstance.get('/users')
@@ -31,13 +32,40 @@ function App() {
   const onButtonSubmit = () => {
       setImageUrl(tempInput);
   }
+
+  const handleRoute = (input) => {
+    setRoute(input);
+  }
+
   return (
     <div className="container">
-      <Register/>
-      {/* <Navigation/>
+      <Navigation route={route} handleRoute={handleRoute}/>
       <Logo/>
-      <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
-      <FaceRecognition imageUrl={imageUrl}/> */}
+      {
+        route === "home"
+        ?
+        <div>
+          <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
+          <FaceRecognition imageUrl={imageUrl}/>
+        </div>
+        :
+        <div>
+          {
+            route === 'register'
+            ?
+            <div>
+              
+              <Register handleRoute={handleRoute}/>
+            </div>
+            :
+            <div>
+              
+              <Signin handleRoute={handleRoute}/>
+            </div>
+          }
+        </div>
+      }
+      {console.log(route)}
     </div>
   );
 }
