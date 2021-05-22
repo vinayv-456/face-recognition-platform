@@ -1,8 +1,16 @@
 .bounding-box {
-  position: relative;
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   cursor: pointer;
+}
+
+#input-image{
+  position: relative;
+}
+
+#face-frame{
+  position: absolute;
+  border: 3px solid black;
 }
