@@ -7,7 +7,9 @@ const Navigation = ({route, handleRoute}) => {
       route === "home"
       ?
       <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <p style={{textDecoration: 'underline', margin: '20px' }}>Sign Out</p>
+        <div onClick={()=>handleRoute("signIn")}>
+          <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer'  }}>Sign Out</p>
+        </div>
       </nav>
       :
       <div>
@@ -15,15 +17,17 @@ const Navigation = ({route, handleRoute}) => {
           route === "register"
           ?
           <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <p style={{textDecoration: 'underline', margin: '20px' }}>signIn</p>
-            <div onClick={handleRoute("register")}>
-            <p style={{textDecoration: 'underline', margin: '20px', color:'yellow' }}>Regsiter</p>
+            <div onClick={()=>handleRoute("signIn")}>
+              <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer' }}>signIn</p>
             </div>
+            <p style={{textDecoration: 'underline', margin: '20px', color:'yellow', cursor:'pointer' }}>Regsiter</p>
           </nav>
           :
           <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <p style={{textDecoration: 'underline', margin: '20px', color:'yellow'}} >SignIn</p>
-            <p style={{textDecoration: 'underline', margin: '20px' }}>Regsiter</p>
+            <p style={{textDecoration: 'underline', margin: '20px', color:'yellow', cursor:'pointer'}} >SignIn</p>
+            <div onClick={()=>handleRoute("register")}>
+              <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer' }}>Regsiter</p>
+            </div>
           </nav>
         }
       </div>
