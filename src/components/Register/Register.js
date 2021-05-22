@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import axiosInstance from '../../apis/client'
-
-const Register = ({ handleRoute }) => {
+const Register = ({ handleRoute, handleSignUp }) => {
   const [form, setForm] = useState({}) 
 
   const onNameChange = (event) => {
@@ -18,12 +16,7 @@ const Register = ({ handleRoute }) => {
     setForm({...form, password: event.target.value})
   }
 
-  const handleSignUp = async() => {
-    console.log(form)
-    const result = await axiosInstance.post('/sign-up', {...form})
-    if(result)
-    handleRoute("home");
-  }
+  
 
     return (
       <div style={{display: 'flex', justifyContent:'center'}}>
@@ -33,9 +26,8 @@ const Register = ({ handleRoute }) => {
           Email:
           <input type="text" onInput={onEmailChange} style={{marginBottom:'10px'}}/>
           password:
-          <input type="text" onInput={onPasswordChange} style={{marginBottom: '20px'}}/>
-
-          <button onClick={handleSignUp}>Register</button>
+          <input type="password" onInput={onPasswordChange} style={{marginBottom: '20px'}}/>
+          <button onClick={()=>handleSignUp(form)}>Register</button>
         </div>
       </div>
     );

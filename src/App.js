@@ -18,6 +18,7 @@ function App() {
   const [tempInput, setTempInput] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [route, setRoute] =useState('signin')
+  const [userData, setUserData] = useState({});
 
   useEffect(()=>{
     axiosInstance.get('/users')
@@ -37,6 +38,26 @@ function App() {
     setRoute(input);
   }
 
+  const onSubmitSignIn = async(email, password) => {
+    const result = await axiosInstance.post('/sign-in',{email: `${email}`, password: `${password}`})
+    console.log(result);
+    if(result)
+    {
+      handleRoute("home");
+      setUserData(result.data)
+    }
+  }
+
+  const handleSignUp = async(form) => {
+    console.log(form)
+    const result = await axiosInstance.post('/sign-up', {...form})
+    if(result)
+    {
+      handleRoute("home");
+      setUserData(result.data)
+    }
+  }
+
   return (
     <div className="container">
       <Navigation route={route} handleRoute={handleRoute}/>
@@ -45,7 +66,7 @@ function App() {
         route === "home"
         ?
         <div>
-          <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
+          <ImageLinkForm name={userData.name} score={userData.entries} onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
           <FaceRecognition imageUrl={imageUrl}/>
         </div>
         :
@@ -54,13 +75,11 @@ function App() {
             route === 'register'
             ?
             <div>
-              
-              <Register handleRoute={handleRoute}/>
+              <Register handleRoute={handleRoute} handleSignUp={handleSignUp}/>
             </div>
             :
             <div>
-              
-              <Signin handleRoute={handleRoute}/>
+              <Signin handleRoute={handleRoute} onSubmitSignIn={onSubmitSignIn}/>
             </div>
           }
         </div>
