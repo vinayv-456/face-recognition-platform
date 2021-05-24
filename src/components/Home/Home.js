@@ -10,7 +10,7 @@ const Home = (props) => {
     const [imageUrl, setImageUrl] = useState('')
     const [tempInput, setTempInput] = useState('')
     
-    const {userData} = props;
+    const {userData, updateUserScore} = props;
 
     const onInputChange = (e) => {
         setTempInput(e.target.value);
@@ -18,6 +18,7 @@ const Home = (props) => {
   
     const onButtonSubmit = () => {
         setImageUrl(tempInput);
+        updateUserScore(userData.id)
     }
     
     return(

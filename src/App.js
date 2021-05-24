@@ -38,12 +38,20 @@ function App(props) {
     }
   }
 
+  const updateUserScore = async (id) => {
+    const result = await axiosInstance.put(`/score-increment/${id}`)
+    if(result)
+    {
+      setUserData({...userData, entries: result.data.entries})
+    }
+  }
+
   return (
     <div className="container">
       <Switch>
         <Route path="/home"
           render={(props) => (
-            <Home {...props} userData={userData} />
+            <Home {...props} userData={userData} updateUserScore={updateUserScore}/>
           )}
         />
         <Route
@@ -55,7 +63,7 @@ function App(props) {
         <Route
           path="/register"
           render={(props) => (
-            <Register {...props} handleSignUp={handleSignUp} />
+            <Register {...props} handleSignUp={handleSignUp}/>
           )}
         />
 
