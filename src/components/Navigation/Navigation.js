@@ -1,23 +1,24 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
-const Navigation = ({route, handleRoute}) => {
+const Navigation = (props) => {
   return (
     <div>
     {
-      route === "home"
+      props.match.path === "/home"
       ?
       <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <div onClick={()=>handleRoute("signIn")}>
+        <div onClick={()=>props.history.push("signin")}>
           <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer'  }}>Sign Out</p>
         </div>
       </nav>
       :
       <div>
         {
-          route === "register"
+          props.match.path === "/register"
           ?
           <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <div onClick={()=>handleRoute("signIn")}>
+            <div onClick={()=>props.history.push("signin")}>
               <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer' }}>signIn</p>
             </div>
             <p style={{textDecoration: 'underline', margin: '20px', color:'yellow', cursor:'pointer' }}>Regsiter</p>
@@ -25,7 +26,7 @@ const Navigation = ({route, handleRoute}) => {
           :
           <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
             <p style={{textDecoration: 'underline', margin: '20px', color:'yellow', cursor:'pointer'}} >SignIn</p>
-            <div onClick={()=>handleRoute("register")}>
+            <div onClick={()=>props.history.push("register")}>
               <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer' }}>Regsiter</p>
             </div>
           </nav>
@@ -36,4 +37,4 @@ const Navigation = ({route, handleRoute}) => {
   );
 }
 
-export default Navigation;
+export default withRouter(Navigation);
