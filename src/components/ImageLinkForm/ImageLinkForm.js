@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './ImageLinkForm.css';
 
-const ImageLinkForm = ({ name, onInputChange, onButtonSubmit, score }) => {
+const ImageLinkForm = ({ onInputChange, onButtonSubmit, name, score }) => {
   return (
     <div>
       <p className='Discription center'>
@@ -20,5 +21,6 @@ const ImageLinkForm = ({ name, onInputChange, onButtonSubmit, score }) => {
     </div>
   );
 }
+
 
 export default ImageLinkForm;

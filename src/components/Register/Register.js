@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import userActions from '../../store/actions/user';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
 
 const Register = (props) => {
   const [form, setForm] = useState({}) 
 
-  const { handleSignUp } = props;
   const onNameChange = (event) => {
     let name = event.target.value
     setForm({...form, name: name})
@@ -19,7 +20,12 @@ const Register = (props) => {
     setForm({...form, password: event.target.value})
   }
 
-  
+  const handleSignUp = async (form) => {
+    console.log(form)
+    props.registerUser(form)
+    if(!props.errMsg)
+    props.history.push('/home')
+  }
 
     return (
       <div>
@@ -40,5 +46,16 @@ const Register = (props) => {
     );
   }
 
+function mapStateToProps(state){
+  return{
+    errMsg: state.errMsg
+  }
+}
+function mapDispatchToProps(dispatch){
+  return{
+    registerUser: (form) => dispatch(userActions.registerUser({ ...form}))
+  }
+}
 
-export default Register;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
