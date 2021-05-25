@@ -29,7 +29,7 @@ function App(props) {
             <Register {...props}/>
           )}
         />
-
+        <Redirect from='/' to="/signin"></Redirect>
       </Switch>
     </div>
   );
