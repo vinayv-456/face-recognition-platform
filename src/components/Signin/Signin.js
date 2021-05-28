@@ -1,3 +1,4 @@
+import { Button, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import userActions from '../../store/actions/user';
@@ -21,8 +22,8 @@ const Signin = (props) => {
     {
       props.history.push('/home')
     }
-  }, [props.errMsg])
-  
+  }, [props.errMsg, props.name])
+
   const onSubmitSignIn = async (email, password) => {
     try{
       props.getUserDetails(email, password)
@@ -38,15 +39,31 @@ const Signin = (props) => {
       <Logo />
       <div style={{display: 'flex', justifyContent:'center'}}>
         <div style={{display:'flex', flexDirection:'column', alignContent:'center', width:'50%'}}>
-            Email:
-            <input type="text" onInput={onEmailChange} style={{marginBottom:'10px'}}/>
-            password:
-            <input type="password" onInput={onPasswordChange} style={{marginBottom: '20px'}}/>
-            
-            <button onClick={()=>{onSubmitSignIn(email, password)}}>SignIn</button>
-            {
-              <p style={{textAlign:'center'}}>{props.errMsg}</p>
-            }
+          <TextField
+            label="Username"
+            placeholder="Please enter username"
+            margin="normal"
+            onChange={onEmailChange}
+            fullWidth
+          />
+          <TextField
+            label="password"
+            placeholder="Please enter password"
+            margin="normal"
+            onChange={onPasswordChange}
+            fullWidth
+            style={{marginBottom:'25px'}}
+          />
+          <Button 
+            color="primary" 
+            variant="contained" 
+            onClick={()=>onSubmitSignIn(email, password)}
+          >
+            Signin
+          </Button>
+          {
+            <p style={{textAlign:'center'}}>{props.errMsg}</p>
+          }
         </div>
       </div>
     </div>

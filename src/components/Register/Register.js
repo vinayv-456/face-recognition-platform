@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import userActions from '../../store/actions/user';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const Register = (props) => {
   const [form, setForm] = useState({}) 
@@ -26,13 +28,11 @@ const Register = (props) => {
   }
 
   useEffect(()=>{
-    console.log("err")
-    setError(props.errMsg);
     if(!props.errMsg && props.name)
     {
       props.history.push('/home')
     }
-  }, [props.errMsg])
+  }, [props.errMsg, props.name])
 
   const handleSignUp = async (form) => {
     console.log(form)
@@ -40,7 +40,7 @@ const Register = (props) => {
     {
       setError("");
       props.registerUser(form)
-      console.log("props.errMsg", props.errMsg)
+      setError(props.errMsg);
     }
     else
     {
@@ -53,16 +53,44 @@ const Register = (props) => {
         <Navigation route={props.match.path}/>
         <Logo />
         <div style={{display: 'flex', justifyContent:'center'}}>
-          <div style={{display:'flex', flexDirection:'column', alignContent:'center', width:'50%'}}>
-            Name:
-            <input type="text" onInput={onNameChange} style={{marginBottom:'10px'}}></input>
-            Email:
-            <input type="text" onInput={onEmailChange} style={{marginBottom:'10px'}}/>
-            password:
-            <input type="password" onInput={onPasswordChange} style={{marginBottom: '20px'}}/>
-            confirm password:
-            <input type="password" onInput={onConfPasswordChange} style={{marginBottom: '20px'}}/>
-            <button onClick={()=>handleSignUp(form)}>Register</button>
+          <div style={{display:'flex',  padding:'20px', flexDirection:'column', alignContent:'center', width:'50%'}}>
+            <TextField
+              label="Name"
+              placeholder="name"
+              margin="normal"
+              onChange={onNameChange}
+              fullWidth
+            />
+            <TextField
+              label="Email"
+              placeholder="Please Enter email"
+              margin="normal"
+              onChange={onEmailChange}
+              fullWidth
+            />
+            <TextField
+              label="password"
+              placeholder="please enter password"
+              margin="normal"
+              onChange={onPasswordChange}
+              fullWidth
+            />
+            <TextField
+              label="Confirm password"
+              placeholder="Re-Enter password"
+              margin="normal"
+              onChange={onConfPasswordChange}
+              fullWidth
+              style={{marginBottom:'25px'}}
+            />
+            <Button 
+              color="primary" 
+              variant="contained" 
+              onClick={()=>handleSignUp(form)}
+            >
+              Register
+            </Button>
+            {console.log(form)}
             {
               <p style={{textAlign: 'center', color:'red'}}>{error}</p>
             }
