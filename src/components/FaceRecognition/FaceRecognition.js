@@ -26,7 +26,8 @@ const FaceRecognition = ({ imageUrl }) => {
   return (
       <div className='bounding-box'>
         {
-          imageUrl &&
+          imageUrl
+          ?
           <div style={{ position:'relative'}}>
           <img id='input-image' alt='' src={imageUrl} width='300px' height='300px'/>
           {
@@ -38,6 +39,10 @@ const FaceRecognition = ({ imageUrl }) => {
               height:(boundaryInfo?.bottom_row - boundaryInfo?.top_row)*300+'px'}}
             />
           }
+          </div>
+          :
+          <div id="image-placeholder">
+            Image
           </div>
         }
         
