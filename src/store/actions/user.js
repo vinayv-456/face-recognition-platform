@@ -1,16 +1,19 @@
 import axiosInstance from "../../apis/client";
 const userActions = {
-    GET_USER_DATA_REQUEST : "SET_USER_DATA",
-    GET_USER_DATA_SUCCESS : "SET_USER_DATA_SUCCESS",
-    GET_USER_DATA_FAILURE : "SET_USER_DATA_FAILURE",
+    GET_USER_DATA_REQUEST : "GET_USER_DATA_REQUEST",
+    GET_USER_DATA_SUCCESS : "GET_USER_DATA_SUCCESS",
+    GET_USER_DATA_FAILURE : "GET_USER_DATA_FAILURE",
     
     signInUser : (params) => async(dispatch) => {
         dispatch({type: userActions.GET_USER_DATA_REQUEST})
         try{
             const result = await axiosInstance.post('/sign-in', params)
             console.log("store", result.data);
-            if (result) {
+            if (result.data) {
                 dispatch({type: userActions.GET_USER_DATA_SUCCESS, payload: result.data});
+            }
+            else{
+                dispatch({type: userActions.GET_USER_DATA_FAILURE, payload: "invalid user_name or password"});
             }
         }
         catch(e){
@@ -33,9 +36,9 @@ const userActions = {
         }
     },
     
-    UPDATE_USER_SCORE_REQUEST : "UPDATE_USER_SCORE",
+    UPDATE_USER_SCORE_REQUEST : "UPDATE_USER_SCORE_REQUEST",
     UPDATE_USER_SCORE_SUCCESS : "UPDATE_USER_SCORE_SUCCESS",
-    UPDATE_USER_SCORE_FAILURE : "UPDATE_USER_SCORE_SUCCESS",
+    UPDATE_USER_SCORE_FAILURE : "UPDATE_USER_SCORE_FAILURE",
     
     updateUserScore : (params) => async(dispatch) => {
         dispatch({type: userActions.UPDATE_USER_SCORE_REQUEST})
@@ -49,7 +52,13 @@ const userActions = {
         catch(e){
             dispatch({type: userActions.UPDATE_USER_SCORE_FAILURE});
         }
-    }
+    },
+
+    SIGNOUT_USER: "SIGNOUT_USER",
+    
+    handleSignOut: () => async(dispatch) => {
+        dispatch({type: userActions.SIGNOUT_USER})
+    } 
 }
 
 export default userActions;

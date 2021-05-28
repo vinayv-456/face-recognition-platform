@@ -20,10 +20,14 @@ const Home = (props) => {
         setImageUrl(tempInput);
         props.updateUserScore(props.id)
     }
+
+    const onSignOut = () => {
+        props.handleSignOut();
+    }
     
     return(
         <div>
-            <Navigation route={props.match.path}/>
+            <Navigation route={props.match.path} handleSignOut={onSignOut}/>
             <Logo />
             <ImageLinkForm name={props.name} score={props.score} onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
             <FaceRecognition imageUrl={imageUrl}/>
@@ -39,7 +43,8 @@ function mapStateToProps(state){
 }
 function mapDispatchToProps(dispatch){
     return{
-      updateUserScore: (id) => dispatch(userActions.updateUserScore({id: id}))
+      updateUserScore: (id) => dispatch(userActions.updateUserScore({id: id})),
+      handleSignOut: () => dispatch(userActions.handleSignOut())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

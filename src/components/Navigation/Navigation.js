@@ -8,7 +8,11 @@ const Navigation = (props) => {
       props.match.path === "/home"
       ?
       <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <div onClick={()=>props.history.push("signin")}>
+        <div 
+          onClick={()=>{
+            props.handleSignOut(); 
+            props.history.push("signin")
+          }}>
           <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer'  }}>Sign Out</p>
         </div>
       </nav>
