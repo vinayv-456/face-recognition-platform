@@ -8,7 +8,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, name, score }) => {
       <p className='Discription center'>
         {`Hello ${name}, This Magic Brain will detect faces in your pictures. Give a try.`}
       </p>
-      <h1 style={{textAlign: 'center', fontWeight:'normal'}}>score: {score}</h1>
+      <p style={{textAlign: 'center', fontWeight:'normal', fontSize:'1.5em'}}>score: {score}</p>
       <div className='center'>
         <div className='form center'>
           <input type='text' className="imageUrl" onInput={onInputChange}/>
