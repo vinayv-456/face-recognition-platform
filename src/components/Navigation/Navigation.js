@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import React from 'react';
 import { withRouter } from 'react-router';
 
@@ -7,32 +8,41 @@ const Navigation = (props) => {
     {
       props.match.path === "/home"
       ?
-      <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <div 
+      <nav style={{display: 'flex', justifyContent: 'flex-end', marginRight:'15px'}}>
+        <Button 
+          color="primary"
+          style={{textDecoration: 'underline', color:'black' }}
           onClick={()=>{
-            props.handleSignOut(); 
-            props.history.push("signin")
-          }}>
-          <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer'  }}>Sign Out</p>
-        </div>
+            props.history.push("signin");
+            props.handleSignOut();
+            }
+          }
+        >signout</Button>
       </nav>
       :
       <div>
         {
-          props.match.path === "/register"
-          ?
-          <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <div onClick={()=>props.history.push("signin")}>
-              <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer' }}>signIn</p>
-            </div>
-            <p style={{textDecoration: 'underline', margin: '20px', color:'yellow', cursor:'pointer' }}>Regsiter</p>
-          </nav>
-          :
-          <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <p style={{textDecoration: 'underline', margin: '20px', color:'yellow', cursor:'pointer'}} >SignIn</p>
-            <div onClick={()=>props.history.push("register")}>
-              <p style={{textDecoration: 'underline', margin: '20px', cursor:'pointer' }}>Regsiter</p>
-            </div>
+          <nav style={{display: 'flex', justifyContent: 'flex-end', marginRight:'15px'}}>
+            <Button 
+              color="primary"
+              style={props.match.path === "/register" ? 
+                {textDecoration: 'underline', color: 'black' } :
+                {textDecoration: 'underline', color:'yellow' }
+              } 
+              onClick={()=>props.history.push("signin")}
+            >
+              signin
+            </Button>
+            <Button 
+              color="primary"
+              style={props.match.path === "/register" ? 
+              {textDecoration: 'underline', color:'yellow' } :
+              {textDecoration: 'underline', color: 'black'} 
+              }
+              onClick={()=>props.history.push("register")}
+            >
+              Register
+            </Button>
           </nav>
         }
       </div>
