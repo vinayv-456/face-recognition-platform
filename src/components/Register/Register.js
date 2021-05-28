@@ -6,6 +6,7 @@ import Navigation from '../Navigation/Navigation';
 
 const Register = (props) => {
   const [form, setForm] = useState({}) 
+  const [error, setError] = useState();
 
   const onNameChange = (event) => {
     let name = event.target.value
@@ -20,11 +21,31 @@ const Register = (props) => {
     setForm({...form, password: event.target.value})
   }
 
+  const onConfPasswordChange = (event) => {
+    setForm({...form, confirmPassword: event.target.value})
+  }
+
+  useEffect(()=>{
+    console.log("err")
+    setError(props.errMsg);
+    if(!props.errMsg && props.name)
+    {
+      props.history.push('/home')
+    }
+  }, [props.errMsg])
+
   const handleSignUp = async (form) => {
     console.log(form)
-    props.registerUser(form)
-    if(!props.errMsg)
-    props.history.push('/home')
+    if(form.password === form.confirmPassword)
+    {
+      setError("");
+      props.registerUser(form)
+      console.log("props.errMsg", props.errMsg)
+    }
+    else
+    {
+      setError("passwords doesnot match, please try again!")
+    }
   }
 
     return (
@@ -39,7 +60,12 @@ const Register = (props) => {
             <input type="text" onInput={onEmailChange} style={{marginBottom:'10px'}}/>
             password:
             <input type="password" onInput={onPasswordChange} style={{marginBottom: '20px'}}/>
+            confirm password:
+            <input type="password" onInput={onConfPasswordChange} style={{marginBottom: '20px'}}/>
             <button onClick={()=>handleSignUp(form)}>Register</button>
+            {
+              <p style={{textAlign: 'center', color:'red'}}>{error}</p>
+            }
           </div>
         </div>
       </div>
@@ -48,7 +74,8 @@ const Register = (props) => {
 
 function mapStateToProps(state){
   return{
-    errMsg: state.errMsg
+    errMsg: state.errMsg,
+    name: state.name
   }
 }
 function mapDispatchToProps(dispatch){

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import userActions from '../../store/actions/user';
 import Logo from '../Logo/Logo';
@@ -16,13 +16,16 @@ const Signin = (props) => {
     setPassword(event.target.value)
   }
 
+  useEffect(()=>{
+    if(!props.errMsg && props.name)
+    {
+      props.history.push('/home')
+    }
+  }, [props.errMsg])
+  
   const onSubmitSignIn = async (email, password) => {
     try{
       props.getUserDetails(email, password)
-      if(!props.errMsg)
-      {
-        props.history.push('/home')
-      }
     }
     catch(e){
       console.log(e)
@@ -41,14 +44,18 @@ const Signin = (props) => {
             <input type="password" onInput={onPasswordChange} style={{marginBottom: '20px'}}/>
             
             <button onClick={()=>{onSubmitSignIn(email, password)}}>SignIn</button>
-          </div>
+            {
+              <p style={{textAlign:'center'}}>{props.errMsg}</p>
+            }
+        </div>
       </div>
     </div>
   );
 }
 function mapStateToProps(state){
   return{
-    errMsg: state.errMsg
+    errMsg: state.errMsg,
+    name: state.name
   }
 }
 function mapDispatchToProps(dispatch){
