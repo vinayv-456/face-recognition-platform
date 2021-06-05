@@ -1,6 +1,6 @@
 // import Reac from 'react'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import userActions from "../../store/actions/user";
 import FaceRecognition from "../FaceRecognition/FaceRecognition";
@@ -21,14 +21,17 @@ const Home = (props) => {
         props.updateUserScore(props.id)
     }
 
-    const onSignOut = () => {
-        props.handleSignOut();
-    }
     
+    useEffect(()=>{
+        if(!props.name)
+        {
+            const temp = props.location.pathname.split('/');
+            props.getUserDetails(temp[temp.length-1]);
+        }
+    }, [])
+
     return(
         <div>
-            <Navigation route={props.match.path} handleSignOut={onSignOut}/>
-            <Logo />
             <ImageLinkForm name={props.name} score={props.score} onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
             <FaceRecognition imageUrl={imageUrl}/>
         </div>
@@ -36,7 +39,6 @@ const Home = (props) => {
 }
 function mapStateToProps(state){
     return{
-        id: state.id,
         name: state.name,
         score: state.entries
     }
@@ -44,7 +46,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return{
       updateUserScore: (id) => dispatch(userActions.updateUserScore({id: id})),
-      handleSignOut: () => dispatch(userActions.handleSignOut())
+      getUserDetails: (id) => dispatch(userActions.getUserDetails({id: id}))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
