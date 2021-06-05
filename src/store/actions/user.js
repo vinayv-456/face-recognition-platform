@@ -20,6 +20,23 @@ const userActions = {
             dispatch({type: userActions.GET_USER_DATA_FAILURE});
         }
     },
+    
+    getUserDetails : (params) => async(dispatch) => {
+        dispatch({type: userActions.GET_USER_DATA_REQUEST})
+        try{
+            const result = await axiosInstance.get(`/user/${params.id}`, params)
+            console.log("store", result.data);
+            if (result.data) {
+                dispatch({type: userActions.GET_USER_DATA_SUCCESS, payload: result.data});
+            }
+            else{
+                dispatch({type: userActions.GET_USER_DATA_FAILURE, payload: "something wrong happened!"});
+            }
+        }
+        catch(e){
+            dispatch({type: userActions.GET_USER_DATA_FAILURE});
+        }
+    },
 
     registerUser: (params) => async(dispatch) => {
         dispatch({type: userActions.GET_USER_DATA_REQUEST})
