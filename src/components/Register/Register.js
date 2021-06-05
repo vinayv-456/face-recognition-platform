@@ -50,10 +50,8 @@ const Register = (props) => {
 
     return (
       <div>
-        <Navigation route={props.match.path}/>
-        <Logo />
         <div style={{display: 'flex', justifyContent:'center'}}>
-          <div style={{display:'flex',  padding:'20px', flexDirection:'column', alignContent:'center', width:'50%'}}>
+          <div style={{display:'flex',  padding:'20px', flexDirection:'column', alignContent:'center', width:'30%', boxShadow:'0 0 10px grey'}}>
             <TextField
               label="Name"
               placeholder="name"

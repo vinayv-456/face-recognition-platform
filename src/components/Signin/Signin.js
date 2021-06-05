@@ -20,7 +20,7 @@ const Signin = (props) => {
   useEffect(()=>{
     if(!props.errMsg && props.name)
     {
-      props.history.push('/home')
+      props.history.push(`/home/${props.id}`)
     }
   }, [props.errMsg, props.name])
 
@@ -35,10 +35,8 @@ const Signin = (props) => {
 
   return (
     <div>  
-      <Navigation/>
-      <Logo />
       <div style={{display: 'flex', justifyContent:'center'}}>
-        <div style={{display:'flex', flexDirection:'column', alignContent:'center', width:'50%'}}>
+        <div style={{display:'flex', flexDirection:'column', alignContent:'center', width:'30%', padding:'15px', boxShadow:'0 0 10px grey'}}>
           <TextField
             label="Username"
             placeholder="Please enter username"
@@ -72,7 +70,8 @@ const Signin = (props) => {
 function mapStateToProps(state){
   return{
     errMsg: state.errMsg,
-    name: state.name
+    name: state.name,
+    id: state.id
   }
 }
 function mapDispatchToProps(dispatch){
