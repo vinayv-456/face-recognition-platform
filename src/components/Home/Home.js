@@ -40,7 +40,8 @@ const Home = (props) => {
 function mapStateToProps(state){
     return{
         name: state.name,
-        score: state.entries
+        score: state.entries,
+        id: state.id
     }
 }
 function mapDispatchToProps(dispatch){
