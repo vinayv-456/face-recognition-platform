@@ -1,4 +1,4 @@
-This application contains login and signup pages where user has to enter his/her credentials.
+This application contains login and signup pages where user has to enter his/her credentials backend of the code is deployed in https://secret-tor-46842.herokuapp.com/
 
 Authorized user can view his dashboard containing his score and input feild to enter a image URL.
 
